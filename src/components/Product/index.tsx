@@ -25,7 +25,7 @@ const Product = ({
         <Tag key={info}>{info}</Tag>
       ))}
     </Infos>
-    <Titulo>Nome do jogo</Titulo>
+    <Titulo>{title}</Titulo>
     <Tag>{category}</Tag>
     <Tag>{system}</Tag>
     <Descricao>{description}</Descricao>
