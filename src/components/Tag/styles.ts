@@ -7,7 +7,7 @@ export const TagContainer = styled.div<Props>`
   color: ${cores.branco};
   font-size: ${({ size }) => (size === 'big' ? '16px' : '10px')};
   font-weight: bold;
-  padding: ${({ size }) => (size === 'big' ? '8px 16px' : '14px 6px')};
+  padding: ${({ size }) => (size === 'big' ? '8px 16px' : '6px 14px ')};
   border-radius: 8px;
   display: inline-block;
 `
