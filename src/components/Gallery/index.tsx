@@ -1,43 +1,23 @@
-import Section from '../Section'
-import { Action, Item, Items, Modal, ModalContent } from './styles'
+import { useState } from 'react'
 
-import homemAranha from '../../assets/images/banner-homem-aranha.png'
-import hogwarts from '../../assets/images/fundo_hogwarts.png'
+import Section from '../Section'
+import { GalleryItem } from '../../pages/Home'
+import { Action, Item, Items, Modal, ModalContent } from './styles'
 import play from '../../assets/images/play.png'
 import zoom from '../../assets/images/zoom.png'
 import close from '../../assets/images/fechar.png'
-import { useState } from 'react'
-
-interface GalleryItem {
-  type: 'image' | 'video'
-  url: string
-}
 
 type Props = {
   defaultCover: string
   name: string
+  items: GalleryItem[]
 }
 
 interface ModalState extends GalleryItem {
   isVisible: boolean
 }
 
-const mock: GalleryItem[] = [
-  {
-    type: 'image',
-    url: hogwarts
-  },
-  {
-    type: 'image',
-    url: homemAranha
-  },
-  {
-    type: 'video',
-    url: 'https://www.youtube.com/embed/uHGShqcAHlQ?si=_rd3NITQNryhwhzP'
-  }
-]
-
-const Gallery = ({ defaultCover, name }: Props) => {
+const Gallery = ({ defaultCover, name, items }: Props) => {
   const [modal, setModal] = useState<ModalState>({
     isVisible: false,
     type: 'image',
@@ -62,7 +42,7 @@ const Gallery = ({ defaultCover, name }: Props) => {
     <>
       <Section title="Galeria" background="black">
         <Items>
-          {mock.map((media, index) => (
+          {items.map((media, index) => (
             <Item
               onClick={() => {
                 setModal({ isVisible: true, type: media.type, url: media.url })
@@ -96,7 +76,7 @@ const Gallery = ({ defaultCover, name }: Props) => {
             <iframe src={modal.url} frameBorder={0}></iframe>
           )}
         </ModalContent>
-        <div className="overlay"></div>
+        <div className="overlay" onClick={closeModal}></div>
       </Modal>
     </>
   )

@@ -1,38 +1,45 @@
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+
+import { Game } from '../Home'
 import Hero from '../../components/Hero'
 import Section from '../../components/Section'
 import Gallery from '../../components/Gallery'
 
-import residentEvil from '../../assets/images/resident.png'
-
 const Product = () => {
   const { id } = useParams()
 
+  const [game, setGame] = useState<Game>()
+  useEffect(() => {
+    fetch(`https://fake-api-tau.vercel.app/api/eplay/jogos/${id}`)
+      .then((res) => res.json())
+      .then((res) => setGame(res))
+  }, [id])
+
+  if (!game) {
+    return <h3>Carregando...</h3>
+  }
+
   return (
     <>
-      <Hero />
+      <Hero game={game} />
       <Section title="Sobre o jogo" background="black">
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta
-          dolorum, similique doloribus numquam esse officia. Ad voluptatem,
-          doloremque, quod odio architecto neque quis corrupti impedit
-          dignissimos facere eveniet. Cum, sequi! Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Debitis dolorem possimus reiciendis
-          optio dicta quaerat reprehenderit amet voluptas assumenda quisquam!
-          Neque quod ducimus nostrum voluptatem asperiores, autem quis tempora
-          dolorem.
-        </p>
+        <p>{game.description}</p>
       </Section>
       <Section title="Mais detalhes" background="gray">
         <p>
-          <b>Plataforma:</b> Playstation 5 <br />
-          <b>Desenvolvedora:</b> Avalanche Software <br />
-          <b>Editora:</b> Portkey Games, subsidiária da Warner Bros. Interactive
-          Entertaiment <br />
-          <b>Idiomas:</b> Inglês, Espanhol, Português
+          <b>Plataforma:</b> {game.details.system} <br />
+          <b>Desenvolvedora:</b> {game.details.developer} <br />
+          <b>Editora:</b> {game.details.publisher} <br />
+          <b>Idiomas:</b> O jogo oferece suporte a diversos idiomas, incluindo{' '}
+          {game.details.languages.join(', ')}
         </p>
       </Section>
-      <Gallery name="Jogo teste" defaultCover={residentEvil} />
+      <Gallery
+        items={game.media.gallery}
+        name={game.name}
+        defaultCover={game.media.cover}
+      />
     </>
   )
 }

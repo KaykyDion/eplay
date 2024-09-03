@@ -92,4 +92,8 @@ export const ModalContent = styled.div`
     width: 100%;
     height: 480px;
   }
+
+  > img {
+    width: 100%;
+  }
 `
