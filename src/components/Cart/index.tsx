@@ -41,7 +41,7 @@ const Cart = () => {
         <ul>
           {items.map((item) => (
             <CartItem key={item.id}>
-              <img src={item.media.cover} alt={item.name} />
+              <img src={item.media.thumbnail} alt={item.name} />
               <div>
                 <h3>{item.name}</h3>
                 <Tag>{item.details.category}</Tag>
